@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-09T19:18:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Site Title</title><subtitle>An amazing website.</subtitle><author><name>Your Name</name></author><entry><title type="html">First Post</title><link href="http://localhost:4000/first-post/" rel="alternate" type="text/html" title="First Post" /><published>2020-01-09T00:00:00+09:00</published><updated>2020-01-09T00:00:00+09:00</updated><id>http://localhost:4000/first-post</id><content type="html" xml:base="http://localhost:4000/first-post/">&lt;h1 id=&quot;191217-서울교통공사-편성정보&quot;&gt;191217 서울교통공사 편성정보&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;191124 - 191127 1호선 - 8호선 특정구간 오전첨두 편성정보를 전달 받음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;예시-케이스-확인&quot;&gt;예시 케이스 확인&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1) 공공API 도착 정보와 비교&lt;/li&gt;
+  &lt;li&gt;2) 열차-차량(편성) 맵핑과 비교&lt;/li&gt;
+  &lt;li&gt;결론
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;열차번호의 맨 앞자리가 달라지는 경우는 큰 의미가 없는 것 같다.&lt;/p&gt;
+
+        &lt;p&gt;2031 = 3031 으로 간주하자&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;예시 케이스 탐색&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled.png&quot; alt=&quot;191217/Untitled.png&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;열차번호 이슈
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;공공API에서는 3000번대로 나오는데, 서울교통공사에서 보내준 것은 2000번대&lt;/p&gt;
+
+            &lt;p&gt;ex) 3031 - 2031 - 264(T)&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;208(3039)는 맵핑 잘못됨&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%201.png&quot; alt=&quot;191217/Untitled%201.png&quot; /&gt;&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;— ‘20191127———————————————————————————&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;1) 공공API 도착 정보와 비교
+        &lt;ul&gt;
+          &lt;li&gt;서울교통공사 자료에는&lt;/li&gt;
+          &lt;li&gt;191127 공공API 도착 정보
+            &lt;ul&gt;
+              &lt;li&gt;7시 : 17대 / 8시 : 18대&lt;/li&gt;
+              &lt;li&gt;3000번대 열차번호가 여러개 존재하며, 6000번대 열차번호도 존재함&lt;/li&gt;
+              &lt;li&gt;그럼에도 열차번호 뒤의 두자리는 대체로 순서를 유지함
+                &lt;ul&gt;
+                  &lt;li&gt;97번 없음&lt;/li&gt;
+                &lt;/ul&gt;
+
+                &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%202.png&quot; alt=&quot;191217/Untitled%202.png&quot; /&gt;&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;2) 열차-차량(편성) 맵핑과 비교
+            &lt;ul&gt;
+              &lt;li&gt;
+                &lt;p&gt;49, 59, 97 누락&lt;/p&gt;
+
+                &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%203.png&quot; alt=&quot;191217/Untitled%203.png&quot; /&gt;&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;본격-탐색&quot;&gt;본격 탐색&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;서울교통공사 정보(A)와 자체 맵핑 로직(B)을 비교 (full-outer join)
+    &lt;ul&gt;
+      &lt;li&gt;Case1) 자체 로직에서 열차 누락&lt;/li&gt;
+      &lt;li&gt;Case2) 자체 로직에서 다른 편성번호(차량)로 맵핑&lt;/li&gt;
+      &lt;li&gt;Case3) 서울교통공사 정보에서 열차 누락&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%204.png&quot; alt=&quot;191217/Untitled%204.png&quot; /&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%205.png&quot; alt=&quot;191217/Untitled%205.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;서울교통공사 정보(A)를 정답으로 보았을 때 자체 맵핑 로직(B)이 얼마나 부족할까?&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%206.png&quot; alt=&quot;191217/Untitled%206.png&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;운행열차수 : 서울교통공사 정보(A)에서 알린 운행대수&lt;/li&gt;
+      &lt;li&gt;열차맵핑성공 : 실제로 운행된 열차를 로직(B)도 운행한다고 판단했는지&lt;/li&gt;
+      &lt;li&gt;차량번호일치 : (A)의 편성번호와 (B)의 편성번호가 동일한지&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;결과
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;2호선&lt;/code&gt;이 가장 맵핑이 잘 안 된다&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;3호선&lt;/code&gt; 과 &lt;code class=&quot;highlighter-rouge&quot;&gt;8호선&lt;/code&gt; 은 맵핑이 100%&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2호선 상세
+    &lt;ul&gt;
+      &lt;li&gt;어떤 열차들이 잘 맵핑이 안되거나, 차량번호가 일치하지 않았을까?
+        &lt;ul&gt;
+          &lt;li&gt;마지막 오류 편성번호를 제외하면, 대체로 맵핑이 안되는 열차들이 계속 맵핑이 안된다.
+            &lt;ul&gt;
+              &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;214&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;240&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;242&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;285&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;286&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;287&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;288&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;289&lt;/code&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%207.png&quot; alt=&quot;191217/Untitled%207.png&quot; /&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;해당 번호의 T-wifi 지하철객차 AP meta를 확인
+            &lt;ul&gt;
+              &lt;li&gt;해당 번호의 지하철객차 AP가 없거나 오류가 생겼을 수 있음&lt;/li&gt;
+              &lt;li&gt;⇒ default.subway_train_twifi_meta (dt =${yyyymmdd})
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;240&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;241&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;244&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;249&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;250&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;251&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;252&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;253&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;254&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;255&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;285&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;289&lt;/code&gt; 차량 T-wifi AP 없음&lt;/li&gt;
+                  &lt;li&gt;해당 차량이 원래 없어서 AP가 없다고 생각 → 차량 있지만 AP가 없음&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;⇒ twifi_raw.twifi_ap 찾아보았는데도 해당 차량의 AP 없음&lt;/li&gt;
+              &lt;li&gt;⇒ edw_raw.uatf_ap_info
+                &lt;ul&gt;
+                  &lt;li&gt;안보여~&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;4호선 상세
+    &lt;ul&gt;
+      &lt;li&gt;ㅇㅇㅇ
+        &lt;ul&gt;
+          &lt;li&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;&lt;img src=&quot;/assets/images/191217/Untitled%208.png&quot; alt=&quot;191217/Untitled%208.png&quot; /&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;Public API 기준
+            &lt;ul&gt;
+              &lt;li&gt;4015 — (18분) — 4017&lt;/li&gt;
+            &lt;/ul&gt;
+
+            &lt;p&gt;&lt;img src=&quot;191217/Untitled%209.png&quot; alt=&quot;191217/Untitled%209.png&quot; /&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;T-wifi AP 시간표
+            &lt;ul&gt;
+              &lt;li&gt;405 — (16~18분) — 408&lt;/li&gt;
+            &lt;/ul&gt;
+
+            &lt;p&gt;&lt;img src=&quot;191217/Untitled%2010.png&quot; alt=&quot;191217/Untitled%2010.png&quot; /&gt;&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;결론
+            &lt;ul&gt;
+              &lt;li&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;5호선 상세&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;191217/Untitled%2011.png&quot; alt=&quot;191217/Untitled%2011.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;6호선 상세
+    &lt;ul&gt;
+      &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;191217/Untitled%2012.png&quot; alt=&quot;191217/Untitled%2012.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;7호선 상세
+    &lt;ul&gt;
+      &lt;li&gt;7호선 맵핑이 잘 안되었음&lt;/li&gt;
+      &lt;li&gt;7호선 열차에 6호선 편성번호에 해당하는 경우가 존재함&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;191217/Untitled%2013.png&quot; alt=&quot;191217/Untitled%2013.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;</content><author><name>Your Name</name></author><summary type="html">191217 서울교통공사 편성정보</summary></entry></feed>
