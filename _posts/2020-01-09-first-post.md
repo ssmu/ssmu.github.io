@@ -1,10 +1,5 @@
 ---
 title: "테스트용 Notion MarkDown"
-excerpt :"함 해보자 일단"
-caterogies:
- - Blog
-tags:
- - Blog
 
 ---
 # 191217 서울교통공사 편성정보

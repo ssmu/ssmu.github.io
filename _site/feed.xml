@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-09T19:18:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Site Title</title><subtitle>An amazing website.</subtitle><author><name>Your Name</name></author><entry><title type="html">First Post</title><link href="http://localhost:4000/first-post/" rel="alternate" type="text/html" title="First Post" /><published>2020-01-09T00:00:00+09:00</published><updated>2020-01-09T00:00:00+09:00</updated><id>http://localhost:4000/first-post</id><content type="html" xml:base="http://localhost:4000/first-post/">&lt;h1 id=&quot;191217-서울교통공사-편성정보&quot;&gt;191217 서울교통공사 편성정보&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-01-09T20:38:37+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">3팀 블로그 테스트</title><subtitle>An amazing website.</subtitle><author><name>Seokmin Song</name></author><entry><title type="html">테스트용 Notion MarkDown</title><link href="http://localhost:4000/first-post/" rel="alternate" type="text/html" title="테스트용 Notion MarkDown" /><published>2020-01-09T00:00:00+09:00</published><updated>2020-01-09T00:00:00+09:00</updated><id>http://localhost:4000/first-post</id><content type="html" xml:base="http://localhost:4000/first-post/">&lt;h1 id=&quot;191217-서울교통공사-편성정보&quot;&gt;191217 서울교통공사 편성정보&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;191124 - 191127 1호선 - 8호선 특정구간 오전첨두 편성정보를 전달 받음&lt;/li&gt;
@@ -196,4 +196,4 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;</content><author><name>Your Name</name></author><summary type="html">191217 서울교통공사 편성정보</summary></entry></feed>
+&lt;hr /&gt;</content><author><name>Seokmin Song</name></author><summary type="html">191217 서울교통공사 편성정보</summary></entry></feed>
