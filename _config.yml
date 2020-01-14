@@ -1,8 +1,10 @@
-title: Hello, world! I'm David Freeman
+title: AA3팀 스터디 블로그
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This is Technical Study Blog for SK Telecom Data Intelligence Group.  
+  Feel free to mail us about technics and papers we study. Thank you
+  # Write an awesome description for your new site here. You can edit this
+  # line in _config.yml. It will appear in your document head meta (for
+  # Google search results) and in your feed.xml site description.
 permalink: ':title/'
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
@@ -11,7 +13,7 @@ site-twitter: #if your site has a twitter account, enter it here
 # Author Settings
 author: SK텔레콤 AIX센터 DI-AA3팀 # add your name
 author-img: david-freeman.jpg # add your photo
-about-author: I am a web developer focusing on front-end development. Always hungry to keep learning. # add description
+about-author: We are data scientist at SK Telecom. Need to Study More!!. # add description
 social-twitter: # add your Twitter handle
 social-facebook: # add your Facebook handle
 social-github: artemsheludko # add your Github handle
@@ -35,3 +37,11 @@ paginate: 8
 paginate_path: "/page/:num"
 
 exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+
+# YAML 머릿말의 기본 셋팅
+# defaults:
+#   -
+#     scope:
+#       path: "" # an empty string here means all files in the project
+#     values:
+#       layout: "default
