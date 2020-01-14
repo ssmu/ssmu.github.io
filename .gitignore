@@ -13,3 +13,6 @@ _site/
 .jekyll
 Gemfile
 Gemfile.lock
+
+## Notion MarkDown 컨버팅용
+/convertNotion/

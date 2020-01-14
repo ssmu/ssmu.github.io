@@ -1,0 +1,279 @@
+I"�&<h1 id="190821-실시간-열차-위치--통계성-검증">190821 실시간 열차 위치 → 통계성 검증</h1>
+
+<p><strong>Original</strong></p>
+
+<ul>
+  <li>data.subway_train_time_loc_hst 사용
+    <ul>
+      <li>twifi 고객의 전후 30초 기지국(기존에 사용하던 열차 메타)</li>
+    </ul>
+  </li>
+  <li>열차별 최소 n ≥ 2
+    <ul>
+      <li>열차별로 log가 2번은 찍혀야 열차 후보에 오르고, 열차 후보들 중에서 가장 긴시간동안 잡히는 열차가 매핑됨</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled.png" alt="190821/Untitled.png" /></p>
+
+<p><strong>1차 시도</strong></p>
+
+<ul>
+  <li>dy_public_data_subway_loc_201907 사용</li>
+  <li>잠실역이라면 잠실역 전체의 기지국(2호선 + 8호선)을 붙임</li>
+  <li>열차별 최소 n ≥ 2</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%201.png" alt="190821/Untitled%201.png" /></p>
+
+<ul>
+  <li>열차별 최소 n ≥ 3</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%202.png" alt="190821/Untitled%202.png" /></p>
+
+<p><strong>2차 시도</strong></p>
+
+<ul>
+  <li>dy_public_data_subway_loc_201907_subwaycode 사용</li>
+  <li>2호선 열차가 잠실역이라면 2호선 잠실역 전체의 기지국을 붙임</li>
+  <li>열차별 최소 n ≥ 2</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%203.png" alt="190821/Untitled%203.png" /></p>
+
+<ul>
+  <li>열차별 최소 n ≥ 3</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%204.png" alt="190821/Untitled%204.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%205.png" alt="190821/Untitled%205.png" /></p>
+
+<hr />
+
+<p><strong>→ (결론) 역사의 전체 기지국(호선을 고려하지않는)이냐, 일부 기지국(호선을 고려한)이냐보다 n≥2 or n≥3 기준이 훨씬 큰 영향을 미친다</strong></p>
+
+<p><strong>→ n≥3 기준보다 한 train이 2개 이상 역사를 함께 이동했는지로 바꾸면 어떨까?</strong></p>
+
+<p>3<strong>차 시도</strong></p>
+
+<ul>
+  <li>dy_public_data_subway_loc_201907_subwaycode 사용</li>
+  <li>2호선 열차가 잠실역이라면 2호선 잠실역 전체의 기지국을 붙임</li>
+  <li>열차별 최소 n ≥ 2 or n ≥ 3 기준 없애고 <strong>한 train이 2개 이상의 역사를 함께 이동했는지</strong>로 변경</li>
+</ul>
+
+<p><strong>[ 결과 ]</strong></p>
+
+<p><img src="/assets/img/190821/Untitled%206.png" alt="190821/Untitled%206.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%207.png" alt="190821/Untitled%207.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%208.png" alt="190821/Untitled%208.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%209.png" alt="190821/Untitled%209.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%2010.png" alt="190821/Untitled%2010.png" /></p>
+
+<p><strong>[ 장단점 ]</strong></p>
+
+<ul>
+  <li>장점
+    <ul>
+      <li>Original 대비 석진님 퇴근길, 다예님 출퇴근길이 더 잡히는 것은 장점</li>
+      <li>trip 갯수 얼마나 차이나는지 확인하기</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2011.png" alt="190821/Untitled%2011.png" /></p>
+
+<ul>
+  <li>단점
+    <ul>
+      <li>석진님 : 5호선 구간 (동대문역사문화공원 - 을지로4가 구간) 계속 잡힌다.</li>
+      <li>인범님 : 버스/KTX인데 잡힌다 &amp; 비율도 높다</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>[ 문제점 원인 찾기 : dedup ]</strong></p>
+
+<p><img src="/assets/img/190821/Untitled%2012.png" alt="190821/Untitled%2012.png" /></p>
+
+<p><img src="/assets/img/190821/Untitled%2013.png" alt="190821/Untitled%2013.png" /></p>
+
+<p><strong>→ (결론) 이 부분에 대해서 의사결정을 혼자서는 못하겠다. 나쁘지 않은 것 같기도 하고, 눈에 거슬리기도 하고. 그냥 앞으로 계속 진행해야겠다.</strong></p>
+
+<p><strong>→ 그래도 규모는 한 번 비교해보자</strong></p>
+
+<h3 id="열차-위치-데이터에-따른-지하철-세션-규모-비교"><strong>열차 위치 데이터에 따른 지하철 세션 규모 비교</strong></h3>
+
+<ul>
+  <li>대조군
+    <ul>
+      <li>열차 데이터 : data.data.subway_train_time_loc_hst</li>
+      <li>세션 데이터 : data.subway_svc_session_daily</li>
+      <li>열차 맵핑 최소 조건 : n(log) ≥ 2</li>
+    </ul>
+  </li>
+  <li>실험군
+    <ul>
+      <li>열차 데이터 : default.dy_public_data_subway_loc_201907_subwaycode</li>
+      <li>세션 데이터 : subway_svc_session_daily_public3</li>
+      <li>열차 맵핑 최소 조건 : 맵핑 역사 갯수 ≥ 2</li>
+    </ul>
+  </li>
+  <li>비교 기간 : 20190701 ~ 20190731</li>
+  <li>조건 : 수도권 &amp; 주요 이용 호선 in (‘1호선’, ‘2호선’, ‘3호선’, …. , ‘9호선’) &amp; train_rate &gt; 10</li>
+  <li>문제점 :
+    <ul>
+      <li>대조군은 전체 열차 위치를 통해서 train_rate를 계산</li>
+      <li>실험군은 (이번에는)일부 호선 열차 위치를 통해서 train_rate를 계산</li>
+      <li><strong>⇒</strong> <strong>실험군에서 규모가 적게 잡힐 수 있음</strong></li>
+    </ul>
+  </li>
+  <li>결과
+    <ul>
+      <li>실험군이 대조군 대비 10% 정도 규모가 적게 잡힘</li>
+      <li>2019년 7월 1-9호선 승차인원 합계 (152,744,810) 대비 대조군은 42.2%, 실험군은 36.1% 수준</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2014.png" alt="190821/Untitled%2014.png" /></p>
+
+<ul>
+  <li>실험군에서 20190721 데이터가 없음 → 공공데이터에서 해당날짜 데이터가 없는데 API fail인지 확인</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2015.png" alt="190821/Untitled%2015.png" /></p>
+
+<hr />
+
+<ul>
+  <li>구성원을 대상으로 비교 (20190721 제외)
+    <ul>
+      <li>대체로 거의 유사하거나 조금씩 줄어드는데, 인범님과 혜민님만 급격하게 증가</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2016.png" alt="190821/Untitled%2016.png" /></p>
+
+<ul>
+  <li>
+    <p>인범님</p>
+
+    <p><img src="/assets/img/190821/Untitled%2017.png" alt="190821/Untitled%2017.png" /></p>
+  </li>
+  <li>
+    <p>혜민님</p>
+
+    <p><img src="/assets/img/190821/Untitled%2018.png" alt="190821/Untitled%2018.png" /></p>
+  </li>
+  <li>
+    <p>다예님</p>
+
+    <p><img src="/assets/img/190821/Untitled%2019.png" alt="190821/Untitled%2019.png" /></p>
+
+    <p><img src="/assets/img/190821/Untitled%2020.png" alt="190821/Untitled%2020.png" /></p>
+
+    <p><img src="/assets/img/190821/Untitled%2021.png" alt="190821/Untitled%2021.png" /></p>
+  </li>
+</ul>
+
+<p><strong>통계성 열차 혼잡도 한바퀴 태우기</strong></p>
+
+<h3 id="통계성-열차-혼잡도-검증-순서">통계성 열차 혼잡도 검증 순서</h3>
+
+<p>1) 호선별 트립 추출 → 2) 빈 구간 채우기 → 3) 역사별 열차 도착 시간 맵핑 → 4) 시간별,역사별 summary</p>
+
+<h3 id="1-호선별-트립-추출">1) 호선별 트립 추출</h3>
+
+<ul>
+  <li>4호선, 8호선, 9호선(일방향)에 대해서 진행. 4호선과 9호선은 급행 존재.</li>
+  <li>7월 1일 (월)에 대해서 열차번호 맵핑된 9호선 트립은 179,856건</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2022.png" alt="190821/Untitled%2022.png" /></p>
+
+<h3 id="2-빈구간-채우기">2) 빈구간 채우기</h3>
+
+<ul>
+  <li>실시간 데이터의 정차역 메타 완성되면 사용 예정</li>
+  <li>지금은 subway_code의 sequence 방법 사용하였음</li>
+</ul>
+
+<p>ex) 노량진에서 등촌역까지 9097 열차를 타고 이동한 고객</p>
+
+<p><img src="/assets/img/190821/Untitled%2023.png" alt="190821/Untitled%2023.png" /></p>
+
+<h3 id="3-역사별-열차-도착-시간-맵핑">3) 역사별 열차 도착 시간 맵핑</h3>
+
+<ul>
+  <li>dy_public_data_subway_loc_201907_raw 활용 → 역사별 역사 도착 시간
+    <ul>
+      <li>0, 1, 2 등의 복잡한 문제는 혜민님이 풀어주실 거라고 생각하고 우선 평균내서 사용</li>
+      <li>급행 열차인데도 일반 역사 진입 시간이 존재함</li>
+      <li><strong>급행 열차의 경우 일반 역사의 도착시간을 manually 삭제함</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2024.png" alt="190821/Untitled%2024.png" /></p>
+
+<ul>
+  <li><strong>9542 열차</strong>는 하행 급행인데, <strong>29544초</strong>에 <strong>가양역</strong>에 도착할 때 SKT 고객 <strong>252명</strong>이 타고 있었다</li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2025.png" alt="190821/Untitled%2025.png" /></p>
+
+<h3 id="4-통계성-열차-혼잡도-summary">4) 통계성 열차 혼잡도 Summary</h3>
+
+<ul>
+  <li><strong>여의도역</strong>
+    <ul>
+      <li>급행이 일반보다 최고 기준 1.5배 정도 사람이 많음</li>
+      <li>급행열차 : 모두 6량 / 일반열차 : 6량 4량 혼합</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2026.png" alt="190821/Untitled%2026.png" /></p>
+
+<ul>
+  <li>신논현역
+    <ul>
+      <li>신논현에서 8시 10분에 내리는 열차는 타면 안된다</li>
+      <li>일반과 급행의 차이가 심한데…</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2027.png" alt="190821/Untitled%2027.png" /></p>
+
+<ul>
+  <li>혼잡시간대 9호선
+    <ul>
+      <li>600명 / 6(량) * (100/36) = 277명           ⇒ 혼잡도 175% 수준</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/190821/Untitled%2028.png" alt="190821/Untitled%2028.png" /></p>
+
+<hr />
+
+<ul>
+  <li>공공데이터/twifi) 두 개 세션을 교집합 → 두 종류의 열차 번호를 남길 수 있도록…
+    <ul>
+      <li>8월 달 중순부터…</li>
+    </ul>
+  </li>
+  <li>공공데이터 버전 여러 호선에 대해서 한달치 output</li>
+  <li>y scale은 나중에 다시 생각하기</li>
+</ul>
+:ET
